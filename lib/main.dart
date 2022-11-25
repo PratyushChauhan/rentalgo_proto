@@ -1,9 +1,9 @@
-import 'package:car_rental/login_screen.dart';
-import 'package:car_rental/welcome_screen.dart';
+import 'package:car_rental/screens/login_screen.dart';
+import 'package:car_rental/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:car_rental/showroom.dart';
+import 'package:car_rental/screens/showroom.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'registration_screen.dart';
+import 'screens/registration_screen.dart';
 
 void main() {
   runApp(MyApp());

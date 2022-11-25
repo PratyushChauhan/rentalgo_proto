@@ -1,8 +1,8 @@
-import 'package:car_rental/car_widget.dart';
+import 'package:car_rental/widgets/car_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:car_rental/constants.dart';
 import 'package:car_rental/data.dart';
-import 'package:car_rental/book_car.dart';
+import 'package:car_rental/screens/book_car.dart';
 
 class AvailableCars extends StatefulWidget {
   @override

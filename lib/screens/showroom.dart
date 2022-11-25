@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:car_rental/constants.dart';
 import 'package:car_rental/data.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:car_rental/car_widget.dart';
-import 'package:car_rental/dealer_widget.dart';
-import 'package:car_rental/available_cars.dart';
-import 'package:car_rental/book_car.dart';
+import 'package:car_rental/widgets/car_widget.dart';
+import 'package:car_rental/widgets/dealer_widget.dart';
+import 'package:car_rental/screens/available_cars.dart';
+import 'package:car_rental/screens/book_car.dart';
 
 class Showroom extends StatefulWidget {
   static const routeName = '/showroom';
@@ -35,9 +36,9 @@ class _ShowroomState extends State<Showroom> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
-          "Car Rental App",
+          "rentalGO",
           style: GoogleFonts.muli(
             fontSize: 28,
             fontWeight: FontWeight.bold,
