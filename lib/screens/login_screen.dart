@@ -1,6 +1,8 @@
 import 'package:car_rental/screens/showroom.dart';
 import 'package:flutter/material.dart';
 
+import '../Database/Sql.dart';
+
 class LoginScreen extends StatefulWidget {
   static String routeName = "login_screen";
   @override
@@ -8,6 +10,28 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  var db = new Sql();
+  String email, password;
+
+  void login(context, String email, String password) {
+    db.getConnection().then((conn) {
+      print("connected");
+      String qry =
+          "SELECT * FROM signin WHERE Email = $email AND Password = $password";
+      conn.query(qry).then((resutls) {
+        //check if the results exist
+        if (resutls.length > 0) {
+          print("Login Successful");
+          print(resutls);
+          Navigator.pushNamed(context, Showroom.routeName);
+        } else {
+          print("Login Failed");
+          print(resutls);
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               onChanged: (value) {
                 //TODO Do something with the user input.
+                setState(() {
+                  email = value;
+                });
               },
               decoration: InputDecoration(
                 hintText: 'Enter your email',
@@ -57,6 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               onChanged: (value) {
                 //TODO Do something with the user input.
+                setState(() {
+                  password = value;
+                });
               },
               decoration: InputDecoration(
                 hintText: 'Enter your password.',
@@ -91,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: MaterialButton(
                     onPressed: () {
                       //TODO Implement login functionality.
-                      Navigator.pushNamed(context, Showroom.routeName);
+                      login(context, email, password);
                     },
                     minWidth: 200.0,
                     height: 42.0,

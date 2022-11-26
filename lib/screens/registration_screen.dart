@@ -1,5 +1,5 @@
-import 'package:car_rental/screens/showroom.dart';
 import 'package:flutter/material.dart';
+import 'package:car_rental/Database/Sql.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = "registration_screen";
@@ -8,6 +8,21 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  var db = new Sql();
+  String name, email, mobile, username, password;
+
+  void register() async {
+    db.getConnection().then((conn) {
+      print("connected");
+      String qry =
+          "INSERT INTO signin (Name, Email, Mobile, Username, Password) VALUES ('${name}', '${email}', '${mobile}', '${username}', '${password}')";
+      conn.query(qry).then((resutls) {
+        print(resutls.toString());
+        print("Data Inserted");
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextField(
                   onChanged: (value) {
                     //TODO Do something with the user input.
+                    username = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter Username',
@@ -59,6 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextField(
                   onChanged: (value) {
                     //TODO Do something with the user input.
+                    name = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter Name',
@@ -85,6 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextField(
                   onChanged: (value) {
                     //TODO Do something with the user input.
+                    mobile = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter Phone number',
@@ -111,6 +129,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 TextField(
                   onChanged: (value) {
                     //TODO Do something with the user input.
+                    email = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter your email',
@@ -135,8 +154,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 8.0,
                 ),
                 TextField(
+                  obscureText: true,
                   onChanged: (value) {
                     //TODO Do something with the user input.
+                    password = value;
                   },
                   decoration: InputDecoration(
                     hintText: 'Enter your password',
@@ -169,9 +190,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),
                       elevation: 5.0,
                       child: MaterialButton(
-                        onPressed: () {
+                        onPressed: () async {
                           //TODO Implement registration functionality.
-                          Navigator.pushNamed(context, Showroom.routeName);
+                          register();
                         },
                         minWidth: 200.0,
                         height: 42.0,
