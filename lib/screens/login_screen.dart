@@ -24,9 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
           print("Login Successful");
           print(resutls);
           Navigator.pushNamed(context, Showroom.routeName);
+          conn.close();
         } else {
           print("Login Failed");
           print(resutls);
+          conn.close();
         }
       });
     });
